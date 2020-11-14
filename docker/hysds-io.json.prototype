@@ -1,0 +1,12 @@
+{
+  "label": "Prepare stack for ARIARNN flood-mapping",
+  "submission_type": "iteration",
+  "enable_dedup": false,
+  "params": [
+      {
+        "name": "input_dataset",
+        "from": "dataset_jpath:_source",
+        "type": "text"
+      }
+  ]
+}
