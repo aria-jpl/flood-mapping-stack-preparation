@@ -20,7 +20,8 @@ def generate_id(id_prefix, context_filename):
         print(f'Generated job ID: {job_id}')
         return job_id
 
-context_filepath = os.path.join(os.environ["pge_root"], '_context.json')
+pge_root = os.environ["pge_root"]
+context_filepath = os.path.join(pge_root, '_context.json')
 
 download_root = '.'
 job_id = generate_id('S1-ARIARNN-PREPARED-DATA', context_filepath)
@@ -50,6 +51,8 @@ fetch(bucket, data_product_root_path, files, download_root)
 
 os.chdir(os.path.join(os.getcwd(), data_product_root_path, 'merged'))
 
+out = subprocess.check_output([f'{pge_root}/process_frames.sh'])
+print(out)
 
 with open(os.path.join(output_root, f'{job_id}.dataset.json'), 'w+') as definition_file:
     json.dump({
