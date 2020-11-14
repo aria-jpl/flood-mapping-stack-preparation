@@ -20,12 +20,13 @@ def generate_id(id_prefix, context_filename):
         print(f'Generated job ID: {job_id}')
         return job_id
 
+work_root = os.getcwd()
 pge_root = os.environ["pge_root"]
-context_filepath = os.path.join(pge_root, '_context.json')
+context_filepath = os.path.join(work_root, '_context.json')
 
-download_root = '.'
+download_root = work_root
 job_id = generate_id('S1-ARIARNN-PREPARED-DATA', context_filepath)
-output_root = f'./{job_id}'
+output_root = f'{work_root}/{job_id}'
 os.makedirs(output_root)
 
 
@@ -50,7 +51,6 @@ bucket = s3.Bucket(bucket_name)
 fetch(bucket, data_product_root_path, files, download_root)
 
 os.chdir(os.path.join(os.getcwd(), data_product_root_path, 'merged'))
-
 out = subprocess.check_output([f'{pge_root}/process_frames.sh'])
 print(out)
 
