@@ -7,7 +7,7 @@ ARG gid
 
 ENV verdi_root="/home/ops/verdi/ops"
 ENV pge_root="${verdi_root}/pge"
-ENV slcp2cor_root = "${pge_root}/slcp2cor"
+ENV slcp2cor_root="${verdi_root}/slcp2cor"
 
 # Install pip dependencies
 RUN echo "===Installing pip dependencies==="
@@ -15,11 +15,13 @@ COPY requirements.txt $pge_root/requirements.txt
 RUN /opt/conda/bin/pip install -r ${pge_root}/requirements.txt
 
 # Install slcp2cor
-RUN git clone https://github.com/alexdunncs/slcp2cor.git $slcp2cor_root
-RUN pushd $slcp2cor_root
-RUN chmod +x compile.sh
-RUN ./compile.sh
-RUN popd
+RUN pushd $verdi_root \
+&& git clone https://github.com/alexdunncs/slcp2cor.git $slcp2cor_root \
+&& cd $slcp2cor_root/src \
+&& echo $(pwd) \
+&& chmod +x compile.sh \
+&& ./compile.sh \
+&& popd
 
 # Copy in scripts and configuration
 COPY --chown=1000:1000 . $pge_root
