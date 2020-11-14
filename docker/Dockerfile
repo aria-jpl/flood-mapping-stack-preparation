@@ -25,7 +25,7 @@ RUN pushd $verdi_root \
 
 # Copy in scripts and configuration
 COPY --chown=1000:1000 . $pge_root
-RUN chmod a+x ${pge_root}/run_pge.py
+RUN chmod a+x ${pge_root}/run_pge.py ${pge_root}/process_frames.sh
 ENV PATH=${PATH}:${pge_root}
 
 USER root
