@@ -1,6 +1,6 @@
 {
   "label": "Prepare stack for ARIARNN flood-mapping",
-  "submission_type": "iteration",
+  "submission_type": "individual",
   "enable_dedup": false,
   "params": [
       {
